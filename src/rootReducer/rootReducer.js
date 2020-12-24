@@ -1,7 +1,7 @@
 const PASS_DATA_TO_CART = "PASS_DATA_TO_CART";
 const REMOVE_SELECTED_PRODUCT_FROM_CART = "REMOVE_SELECTED_PRODUCT_FROM_CART";
 const TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART = "TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART";
-
+const UPDATE_STATE_FOR_LATEST_DATA = "UPDATE_STATE_FOR_LATEST_DATA";
 
 const defaultState1 = {
 
@@ -16,6 +16,13 @@ const rootReducer=(state=defaultState1, action)=>{
 
     switch(action.type){
 
+        case UPDATE_STATE_FOR_LATEST_DATA:
+            console.log("action called");
+                return {
+                    ...newState,
+                    selectedDataForCart :  newState.selectedDataForCart
+                }
+
         case PASS_DATA_TO_CART:
             
             let newArray= [...newState.selectedDataForCart, action.data.data]
@@ -29,8 +36,6 @@ const rootReducer=(state=defaultState1, action)=>{
 
             case TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART:
                 let removedPrice = parseInt(action.data.data.price);
-                // console.log(removedPrice);
-                // console.log(action.data.data);
                 let total = newState.totalAmount - removedPrice;
                 return {
                     ...newState,

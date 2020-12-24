@@ -32,7 +32,7 @@ const Product = ({name, price, currency, image, index, no_of_items}) =>{
         <img className="image" src={image} alt="product" />
         <div className="caption">
             <h3>{name}</h3>
-            <div className="product__price">{price} {currency}</div>
+            <div className="product__price">{price} {currency} Qty: {no_of_items}</div>
             <div className="product__button-wrap">
                     <button
                     className={isInCart ? 'btn btn-danger' : 'btn btn-primary'} //add condition
