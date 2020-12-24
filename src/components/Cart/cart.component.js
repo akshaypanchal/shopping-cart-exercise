@@ -2,12 +2,24 @@ import React from 'react';
 import CartItem from './CartItem';
 import './cart.style.css';
 import {useSelector} from 'react-redux';
+import axios from 'axios';
 
 const Cart = () => {
 
 
     const items = useSelector(state => state.selectedDataForCart)
     const total = useSelector(state=>state.totalAmount);
+
+    const updateTheDatabaseCount = ({items}) =>{
+        console.log(items);
+            axios.post('http://localhost:3000/checkout', {items})
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+    }
     
 
     return (
@@ -25,6 +37,7 @@ const Cart = () => {
                             </div>
                         )}
                         <div className="cart__total">Total: {total} EUR</div>
+                        <button onClick={()=>updateTheDatabaseCount({items})} className="btn btn-success" >Checkout</button>
                     </div>
                 </div>
             </div>

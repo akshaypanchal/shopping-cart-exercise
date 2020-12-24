@@ -29,14 +29,14 @@ const Product = ({name, price, currency, image, index, no_of_items}) =>{
 
     return(
         <div className="product thumbnail">
-        <img src={image} alt="product" />
+        <img className="image" src={image} alt="product" />
         <div className="caption">
             <h3>{name}</h3>
             <div className="product__price">{price} {currency}</div>
             <div className="product__button-wrap">
                     <button
                     className={isInCart ? 'btn btn-danger' : 'btn btn-primary'} //add condition
-                    onClick = {()=>passDataToCart({name,price,currency, index})}
+                    onClick = {()=>passDataToCart({name,price,currency, index, no_of_items})}
                     disabled= {no_of_items <= 0 ?true:false}
                     >
                         
