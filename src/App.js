@@ -1,7 +1,6 @@
 import ProductList from './components/ProductList/productList.component'
 import Cart from './components/Cart/cart.component';
 import './App.css';
-import productData from './data/products';
 import React from 'react';
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     </div>
     <div className="row">
         <div className="col-md-8">
-            <ProductList products={ productData }/>
+            <ProductList/>
         </div>
         <div className="col-md-4">
             <Cart />

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 
-const Product = ({name, price, currency, image, index}) =>{
+const Product = ({name, price, currency, image, index, no_of_items}) =>{
 
     const dispatch = useDispatch();
     
@@ -34,12 +34,15 @@ const Product = ({name, price, currency, image, index}) =>{
             <h3>{name}</h3>
             <div className="product__price">{price} {currency}</div>
             <div className="product__button-wrap">
-                <button
-                    className={isInCart ? 'btn btn-danger' : 'btn btn-primary'}
+                    <button
+                    className={isInCart ? 'btn btn-danger' : 'btn btn-primary'} //add condition
                     onClick = {()=>passDataToCart({name,price,currency, index})}
-                >
-                    {isInCart ? 'Remove' : 'Add to cart'}
+                    disabled= {no_of_items <= 0 ?true:false}
+                    >
+                        
+                    {no_of_items<=0 ? "Out of Stock": (isInCart ?  "Remove" : "Add to Cart")}
                 </button>
+
             </div>
         </div>
     </div>
