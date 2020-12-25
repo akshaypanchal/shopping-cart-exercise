@@ -8,7 +8,7 @@ import {updateStateForLatestData} from '../../actions/action';
 
 
 const Cart = () => {
-
+    const labelFlag = false;
     const dispatch = useDispatch();
     const items = useSelector(state => state.selectedDataForCart)
     const total = useSelector(state => state.totalAmount);
@@ -17,11 +17,11 @@ const Cart = () => {
 
         if (items.length !== 0) {
             console.log("axios called");
-            axios.post('http://localhost:3000/checkout', { items })
+            axios.patch('http://localhost:3000/checkout', { items })
                 .then(function (response) {
                     console.log(response);
                     dispatch(updateStateForLatestData());
-
+            
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -47,6 +47,9 @@ const Cart = () => {
                         )}
                         <div className="cart__total">Total: {total} EUR</div>
                         <button onClick={() => updateTheDatabaseCount({ items })} className="btn btn-success" >Checkout</button>
+                        {/* { labelFlag ?
+                            <p>Checkout Successfull!!!</p> : null
+                        } */}
                     </div>
                 </div>
             </div>

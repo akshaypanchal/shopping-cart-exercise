@@ -19,8 +19,8 @@ const rootReducer=(state=defaultState1, action)=>{
         case UPDATE_STATE_FOR_LATEST_DATA:
             console.log("action called");
                 return {
-                    ...newState,
-                    selectedDataForCart :  newState.selectedDataForCart
+                    totalAmount:0,
+                    selectedDataForCart : []
                 }
 
         case PASS_DATA_TO_CART:
