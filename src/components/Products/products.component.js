@@ -2,7 +2,6 @@ import './product.style.css';
 import {addDataToCart, removeSelectedProductFromCart, totalAmountAfterRemoveProductFromCart} from '../../actions/action';
 import {useDispatch} from 'react-redux';
 import { useState } from 'react';
-import axios from 'axios';
 
 
 const Product = ({_id,name, price, currency, image, index, no_of_items}) =>{
@@ -14,21 +13,13 @@ const Product = ({_id,name, price, currency, image, index, no_of_items}) =>{
     const passDataToCart = (data) =>{
 
         if(isInCart){
-            dispatch(removeSelectedProductFromCart({data}));
-            dispatch(totalAmountAfterRemoveProductFromCart({data}));
+            dispatch(removeSelectedProductFromCart(data));
+            dispatch(totalAmountAfterRemoveProductFromCart(data));
             isInCartSelected(false);
-
-            // axios.post("http://localhost:3000/addProduct", {data})
-            // .then(function(response){
-            //     console.log(response)
-            // })
-            // .catch(function(error){
-            //     console.log(error);
-            // })
 
         }
         else{
-            dispatch(addDataToCart({data}));
+            dispatch(addDataToCart(data));
             isInCartSelected(true);
         
         }

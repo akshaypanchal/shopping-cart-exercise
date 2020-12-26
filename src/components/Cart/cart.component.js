@@ -8,7 +8,7 @@ import {updateStateForLatestData} from '../../actions/action';
 
 
 const Cart = () => {
-    const labelFlag = false;
+
     const dispatch = useDispatch();
     const items = useSelector(state => state.selectedDataForCart)
     const total = useSelector(state => state.totalAmount);
@@ -16,7 +16,6 @@ const Cart = () => {
     const updateTheDatabaseCount = ({ items }) => {
 
         if (items.length !== 0) {
-            console.log("axios called");
             axios.patch('http://localhost:3000/checkout', { items })
                 .then(function (response) {
                     console.log(response);
