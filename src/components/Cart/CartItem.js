@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeSelectedProductFromCart, totalAmountAfterRemoveProductFromCart } from '../../actions/action';
+import { removeSelectedProductFromCart, totalAmountAfterRemoveProductFromCart, updateProductArrayWithUserWishList } from '../../actions/action';
 
 
 const CartItem = ({_id, name, price, currency, index }) => {
@@ -10,8 +10,9 @@ const CartItem = ({_id, name, price, currency, index }) => {
 
 
     const removeSelectedItemFromCart = (data) => {
-        dispatch(removeSelectedProductFromCart({ data }));
-        dispatch(totalAmountAfterRemoveProductFromCart({ data }));
+        dispatch(removeSelectedProductFromCart(data));
+        dispatch(totalAmountAfterRemoveProductFromCart(data));
+        dispatch(updateProductArrayWithUserWishList());
 
     }
 

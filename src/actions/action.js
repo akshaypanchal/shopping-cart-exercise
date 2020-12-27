@@ -2,8 +2,8 @@ const PASS_DATA_TO_CART = "PASS_DATA_TO_CART";
 const SELECTED_PRODUCTS_TOTAL_PRICE= "SELECTED_PRODUCTS_TOTAL_PRICE";
 const REMOVE_SELECTED_PRODUCT_FROM_CART = "REMOVE_SELECTED_PRODUCT_FROM_CART";
 const TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART = "TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART";
-const UPDATE_STATE_FOR_LATEST_DATA = "UPDATE_STATE_FOR_LATEST_DATA";
-
+const FETCH_PRODUCTS_FROM_DATABASE = "FETCH_PRODUCTS_FROM_DATABASE";
+const UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA = "UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA";
 
 export const addDataToCart = (data) =>{
     return{
@@ -35,8 +35,15 @@ export const totalAmountAfterRemoveProductFromCart = (data) =>{
     }
 }
 
-export const updateStateForLatestData = () => {
+export const fetchProductsFromDatabase = (data) => {
     return{
-        type: UPDATE_STATE_FOR_LATEST_DATA
+        type: FETCH_PRODUCTS_FROM_DATABASE,
+        data:data
+    }
+}
+
+export const updateProductArrayWithUserWishList = () =>{
+    return {
+        type: UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA
     }
 }

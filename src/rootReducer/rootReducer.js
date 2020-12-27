@@ -3,10 +3,11 @@ import axios from 'axios';
 const PASS_DATA_TO_CART = "PASS_DATA_TO_CART";
 const REMOVE_SELECTED_PRODUCT_FROM_CART = "REMOVE_SELECTED_PRODUCT_FROM_CART";
 const TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART = "TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART";
-const UPDATE_STATE_FOR_LATEST_DATA = "UPDATE_STATE_FOR_LATEST_DATA";
+const FETCH_PRODUCTS_FROM_DATABASE  = "FETCH_PRODUCTS_FROM_DATABASE";
+const UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA   = "UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA";
 
 const defaultState1 = {
-
+    productArray:[],
     selectedDataForCart: [],
     totalAmount: 0
 
@@ -18,17 +19,47 @@ const rootReducer = (state = defaultState1, action) => {
 
     switch (action.type) {
 
-        case UPDATE_STATE_FOR_LATEST_DATA:
+        case FETCH_PRODUCTS_FROM_DATABASE:
+            console.log("FETCH_PRODUCTS_FROM_DATABASE")
             return {
-                totalAmount: 0,
-                selectedDataForCart: []
+                ...newState,
+                productArray:action.data
+            }
+
+        case UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA:
+
+        console.log("UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA")
+
+            const newProductArray = newState.productArray;
+            if(newState.selectedDataForCart.length>0){
+                for(var i=0;i<newState.selectedDataForCart.length;i++){
+                    for(var j=0; j<newProductArray.length; j++){
+                        if(newState.selectedDataForCart[i]._id === newProductArray[j]._id){
+                            // newProductArray[j].isInCart = true;
+                            if(newProductArray[j].isInCart){
+                                newProductArray[j].isInCart = false;
+                            }
+                            else{
+                                console.log("remove button should display");
+                                newProductArray[j].isInCart = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // console.log("new Product Array", newProductArray);
+            return {
+                ...newState,
+                productArray: newProductArray
             }
 
         case PASS_DATA_TO_CART:
+            console.log("PASS_DATA_TO_CART")
 
                 axios.post("http://localhost:3000/wishlist",action.data)
                     .then(function (response) {
-                        console.log(response)
+                        // console.log(response)
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -44,6 +75,7 @@ const rootReducer = (state = defaultState1, action) => {
             }
 
         case TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART:
+            console.log("TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART")
             let removedPrice = parseInt(action.data.price);
             let total = newState.totalAmount - removedPrice;
             return {
@@ -52,13 +84,13 @@ const rootReducer = (state = defaultState1, action) => {
             }
 
         case REMOVE_SELECTED_PRODUCT_FROM_CART:
+            console.log("REMOVE_SELECTED_PRODUCT_FROM_CART")
             let itemValue = action.data;
             const array1 = newState.selectedDataForCart.filter(item => item.index !== itemValue.index);
-            console.log(itemValue._id);
 
             axios.delete(`http://localhost:3000/wishlist?_id=${itemValue._id}`)
                 .then(function (response) {
-                    console.log(response);
+                    // console.log(response);
                 })
                 .catch(function (response) {
                     console.log(response);
