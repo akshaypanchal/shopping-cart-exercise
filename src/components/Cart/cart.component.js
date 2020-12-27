@@ -1,7 +1,7 @@
 import React from 'react';
 import CartItem from './CartItem';
 import './cart.style.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 
@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const Cart = () => {
 
-    const dispatch = useDispatch();
     const items = useSelector(state => state.selectedDataForCart);
     const total = useSelector(state => state.totalAmount);
 
@@ -18,8 +17,8 @@ const Cart = () => {
         if (items.length !== 0) {
             axios.patch('http://localhost:3000/checkout', { items })
                 .then(function (response) {
-                    // console.log(response);
-                    // dispatch(updateStateForLatestData());
+                    console.log(response);
+
             
                 })
                 .catch(function (error) {

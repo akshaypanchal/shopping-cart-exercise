@@ -1,13 +1,14 @@
 import axios from 'axios';
 
+
 const PASS_DATA_TO_CART = "PASS_DATA_TO_CART";
 const REMOVE_SELECTED_PRODUCT_FROM_CART = "REMOVE_SELECTED_PRODUCT_FROM_CART";
 const TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART = "TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART";
-const FETCH_PRODUCTS_FROM_DATABASE  = "FETCH_PRODUCTS_FROM_DATABASE";
-const UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA   = "UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA";
+const FETCH_PRODUCTS_FROM_DATABASE = "FETCH_PRODUCTS_FROM_DATABASE";
+const UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA = "UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA";
 
 const defaultState1 = {
-    productArray:[],
+    productArray: [],
     selectedDataForCart: [],
     totalAmount: 0
 
@@ -23,47 +24,66 @@ const rootReducer = (state = defaultState1, action) => {
             console.log("FETCH_PRODUCTS_FROM_DATABASE")
             return {
                 ...newState,
-                productArray:action.data
+                productArray: action.data
             }
 
         case UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA:
 
-        console.log("UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA")
-
             const newProductArray = newState.productArray;
-            if(newState.selectedDataForCart.length>0){
-                for(var i=0;i<newState.selectedDataForCart.length;i++){
-                    for(var j=0; j<newProductArray.length; j++){
-                        if(newState.selectedDataForCart[i]._id === newProductArray[j]._id){
-                            // newProductArray[j].isInCart = true;
-                            if(newProductArray[j].isInCart){
-                                newProductArray[j].isInCart = false;
-                            }
-                            else{
-                                console.log("remove button should display");
-                                newProductArray[j].isInCart = true;
-                            }
+            if (action.data) {
+                for (var i = 0; i < newProductArray.length; i++) {
+                    if (newProductArray[i]._id === action.data._id) {
+                        if(newProductArray[i].isInCart === true){
+                            newProductArray[i].isInCart = false;
+                        }
+                        else{
+                            newProductArray[i].isInCart = true;
                         }
                     }
                 }
             }
 
-            // console.log("new Product Array", newProductArray);
+            else {
+
+                if (newState.selectedDataForCart.length > 0) {
+                    for ( i = 0; i < newState.selectedDataForCart.length; i++) {
+                        for (var j = 0; j < newProductArray.length; j++) {
+                            if (newState.selectedDataForCart[i]._id === newProductArray[j]._id) {
+                                console.log(newProductArray[j]);
+                                if (newProductArray[j].isInCart === true) {
+                                    console.log("false edition edition", newProductArray[j].isInCart);
+                                    newProductArray[j].isInCart = false;
+                                    console.log("false edition edition", newProductArray[j].isInCart);
+                                }
+                                else {
+
+                                    newProductArray[j].isInCart = true;
+                                    console.log("true edition", newProductArray[j].isInCart);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            const products = [...newProductArray];
+
+            console.log("new Product Array", newProductArray);
             return {
+
                 ...newState,
-                productArray: newProductArray
+                productArray: products
             }
 
         case PASS_DATA_TO_CART:
             console.log("PASS_DATA_TO_CART")
 
-                axios.post("http://localhost:3000/wishlist",action.data)
-                    .then(function (response) {
-                        // console.log(response)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
+            axios.post("http://localhost:3000/wishlist", action.data)
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
 
             let newArray = [...newState.selectedDataForCart, action.data]
             let selectedPrice = parseInt(action.data.price);
@@ -90,7 +110,7 @@ const rootReducer = (state = defaultState1, action) => {
 
             axios.delete(`http://localhost:3000/wishlist?_id=${itemValue._id}`)
                 .then(function (response) {
-                    // console.log(response);
+                    console.log(response);
                 })
                 .catch(function (response) {
                     console.log(response);

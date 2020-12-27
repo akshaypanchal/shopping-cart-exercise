@@ -14,9 +14,7 @@ const dispatch = useDispatch();
 
     axios.get("http://localhost:3000/")
     .then(function (response) {
-      // setProductData(response.data.data);
-      // console.log("response");
-      // console.log(response)
+
       dispatch(fetchProductsFromDatabase(response.data.data));
     })
 

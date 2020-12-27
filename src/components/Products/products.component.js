@@ -1,6 +1,6 @@
 import './product.style.css';
 import {addDataToCart, removeSelectedProductFromCart, totalAmountAfterRemoveProductFromCart, updateProductArrayWithUserWishList} from '../../actions/action';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 
 
@@ -14,14 +14,12 @@ const Product = ({_id,name, price, currency, image, index, no_of_items, isInCart
         if(isInCart){
             dispatch(removeSelectedProductFromCart(data));
             dispatch(totalAmountAfterRemoveProductFromCart(data));
-            // isInCartSelected(false);
-            dispatch(updateProductArrayWithUserWishList());
+            dispatch(updateProductArrayWithUserWishList(data));
 
         }
         else{
             dispatch(addDataToCart(data));
-            // isInCartSelected(true);
-            dispatch(updateProductArrayWithUserWishList());
+            dispatch(updateProductArrayWithUserWishList(data));
         
         }
     }

@@ -42,8 +42,9 @@ export const fetchProductsFromDatabase = (data) => {
     }
 }
 
-export const updateProductArrayWithUserWishList = () =>{
+export const updateProductArrayWithUserWishList = (data) =>{
     return {
-        type: UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA
+        type: UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA,
+        data:data
     }
 }

@@ -12,7 +12,7 @@ const CartItem = ({_id, name, price, currency, index }) => {
     const removeSelectedItemFromCart = (data) => {
         dispatch(removeSelectedProductFromCart(data));
         dispatch(totalAmountAfterRemoveProductFromCart(data));
-        dispatch(updateProductArrayWithUserWishList());
+        dispatch(updateProductArrayWithUserWishList(data));
 
     }
 
