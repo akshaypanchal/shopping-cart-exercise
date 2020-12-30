@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import bcrypt from 'bcryptjs';
 
 
 const SignUp = () => {
@@ -8,22 +8,26 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+
     const [password, setPassword] = useState("");
-
-    const validateEmail = () => {
-        const emailName = email;
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const data = re.test(String(emailName).toLowerCase());
-
-    }
 
 
     const addDataToDatabase = () => {
 
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const data = re.test(String(email).toLowerCase());
+        const saltRounds=10;
 
         if (firstName && lastName && email && password) {
+
+
+            bcrypt.hash(password, saltRounds, function(err, hash){
+                    console.log("SaltRounds",saltRounds);
+                    console.log("Hash", hash);
+            });
+
+
+
 
             if (data) {
                 axios.post("http://localhost:3000/signup", { firstName, lastName, email, password })
