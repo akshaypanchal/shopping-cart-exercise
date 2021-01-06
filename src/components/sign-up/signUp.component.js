@@ -8,7 +8,7 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-
+    const [hash, setHash] = useState("");
     const [password, setPassword] = useState("");
 
 
@@ -22,8 +22,10 @@ const SignUp = () => {
 
 
             bcrypt.hash(password, saltRounds, function(err, hash){
-                    console.log("SaltRounds",saltRounds);
-                    console.log("Hash", hash);
+                    setHash(hash);
+                    if(err){
+                        console.log("ture");
+                    }
             });
 
 

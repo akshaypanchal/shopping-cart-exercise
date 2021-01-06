@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 import { fetchProductsFromDatabase } from './actions/action';
 import { useDispatch } from 'react-redux';
 import  SignUp from './components/sign-up/signUp.component';
+import Login from './components/login/login.component';
 
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
 
       <Route path="/signup">
         <SignUp />
+      </Route>
+
+      <Route path="/login">
+        <Login />
       </Route>
 
         <Route path="/shopping">

@@ -3,12 +3,13 @@ import CartItem from './CartItem';
 import './cart.style.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { updateProductArrayWithUserWishList, updateCartAfterUserPLaceOrder } from '../../actions/action';
 
 
 
 const Cart = () => {
-
+    const dispatch = useDispatch();
     const items = useSelector(state => state.selectedDataForCart);
     const total = useSelector(state => state.totalAmount);
 
@@ -18,8 +19,21 @@ const Cart = () => {
             axios.patch('http://localhost:3000/checkout', { items })
                 .then(function (response) {
                     console.log(response);
+                    dispatch(updateProductArrayWithUserWishList());
+                    dispatch(updateCartAfterUserPLaceOrder());
+                    items.map(item =>{
 
-            
+                        axios.delete(`http://localhost:3000/wishlist?_id=${item._id}`)
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (response) {
+                                console.log(response);
+                            })
+
+
+                    });
+
                 })
                 .catch(function (error) {
                     console.log(error);

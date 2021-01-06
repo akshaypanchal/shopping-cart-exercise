@@ -6,6 +6,7 @@ const REMOVE_SELECTED_PRODUCT_FROM_CART = "REMOVE_SELECTED_PRODUCT_FROM_CART";
 const TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART = "TOTAL_AMOUNT_AFTER_REMOVING_PRODUCT_FROM_CART";
 const FETCH_PRODUCTS_FROM_DATABASE = "FETCH_PRODUCTS_FROM_DATABASE";
 const UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA = "UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA";
+const UPDATE_CART_AFTER_USER_PLACR_ORDER = "UPDATE_CART_AFTER_USER_PLACR_ORDER";
 
 const defaultState1 = {
     productArray: [],
@@ -21,11 +22,18 @@ const rootReducer = (state = defaultState1, action) => {
     switch (action.type) {
 
         case FETCH_PRODUCTS_FROM_DATABASE:
-            console.log("FETCH_PRODUCTS_FROM_DATABASE")
+            console.log("FETCH_PRODUCTS_FROM_DATABASE");
             return {
                 ...newState,
                 productArray: action.data
             }
+
+        case UPDATE_CART_AFTER_USER_PLACR_ORDER:
+            return{
+                ...newState,
+                selectedDataForCart:[]
+            }
+
 
         case UPDATE_PRODUCT_ARRAY_WITH_USER_WISHLIST_DATA:
 

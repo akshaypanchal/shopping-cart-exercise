@@ -20,7 +20,7 @@ const ProductList = () => {
     .then(function(response){
 
         response.data.data.map(item=>{
-            console.log("response called");
+            console.log(response);
             dispatch(addDataToCart(item));
            
         })
